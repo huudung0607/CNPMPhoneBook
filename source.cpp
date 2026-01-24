@@ -154,192 +154,191 @@ public:
 
 int main()
 {
-	
-}
-
-
-class Contact {
-private:
-	string contactID, fullName, phoneNumber, email, address, company, relatives;
-public:
-	Contact() {};
-	Contact(string contactID, string fullName, string phoneNumber, string email, string address, string company, string relatives) {
-		this->contactID = contactID;
-		this->fullName = fullName;
-		this->phoneNumber = phoneNumber;
-		this->email = email;
-		this->address = address;
-		this->company = company;
-		this->relatives = relatives;
-	}
-	void updateInfo(string contactID, string fullName, string phoneNumber, string email, string address, string company, string relatives) {
-		this->contactID = contactID;
-		this->fullName = fullName;
-		this->phoneNumber = phoneNumber;
-		this->email = email;
-		this->address = address;
-		this->company = company;
-		this->relatives = relatives;
-	}
-	friend istream& operator >> (istream& in, Contact& x) {
-		//Nhập và kiểm tra contactID
-		cout << "Contact ID: ";
-		getline(in, x.contactID);
-		while (!checkContactID(x.contactID)) {
-			cout << "ContactID khong hop le. Vui long nhap lai: ";
+	class Contact {
+	private:
+		string contactID, fullName, phoneNumber, email, address, company, relatives;
+	public:
+		Contact() {};
+		Contact(string contactID, string fullName, string phoneNumber, string email, string address, string company, string relatives) {
+			this->contactID = contactID;
+			this->fullName = fullName;
+			this->phoneNumber = phoneNumber;
+			this->email = email;
+			this->address = address;
+			this->company = company;
+			this->relatives = relatives;
+		}
+		void updateInfo(string contactID, string fullName, string phoneNumber, string email, string address, string company, string relatives) {
+			this->contactID = contactID;
+			this->fullName = fullName;
+			this->phoneNumber = phoneNumber;
+			this->email = email;
+			this->address = address;
+			this->company = company;
+			this->relatives = relatives;
+		}
+		friend istream& operator >> (istream& in, Contact& x) {
+			//Nhập và kiểm tra contactID
+			cout << "Contact ID: ";
 			getline(in, x.contactID);
-		}
-		userIDCheck.insert(x.contactID);
+			while (!checkContactID(x.contactID)) {
+				cout << "ContactID khong hop le. Vui long nhap lai: ";
+				getline(in, x.contactID);
+			}
+			userIDCheck.insert(x.contactID);
 
-		//Full Name
-		//Nhập và kiểm tra fullName
-		cout << "Ten day du : ";
-		getline(in, x.fullName);
-		while (!checkUsername(x.fullName)) {
-			cout << "Ten khong hop le. Vui long nhap lai: ";
+			//Full Name
+			//Nhập và kiểm tra fullName
+			cout << "Ten day du : ";
 			getline(in, x.fullName);
-		}
-		chuanHoaTen(x.fullName);
+			while (!checkUsername(x.fullName)) {
+				cout << "Ten khong hop le. Vui long nhap lai: ";
+				getline(in, x.fullName);
+			}
+			chuanHoaTen(x.fullName);
 
-		//Nhập và kiểm tra phoneNumber
-		cout << "Phone Number : ";
-		getline(in, x.phoneNumber);
-		while (!checkPhoneNumber(x.phoneNumber) || phoneNumberCheck.count(x.phoneNumber)) {
-			cout << "So dien thoai khong hop le : ";
+			//Nhập và kiểm tra phoneNumber
+			cout << "Phone Number : ";
 			getline(in, x.phoneNumber);
-		}
-		phoneNumberCheck.insert(x.phoneNumber);
+			while (!checkPhoneNumber(x.phoneNumber) || phoneNumberCheck.count(x.phoneNumber)) {
+				cout << "So dien thoai khong hop le : ";
+				getline(in, x.phoneNumber);
+			}
+			phoneNumberCheck.insert(x.phoneNumber);
 
-		//Nhập và kiểm tra email
-		cout << "Email : ";
-		getline(in, x.email);
-		while (!checkEmail(x.email)) {
-			cout << "Email khong hop le. Vui long nhap lai: ";
+			//Nhập và kiểm tra email
+			cout << "Email : ";
 			getline(in, x.email);
+			while (!checkEmail(x.email)) {
+				cout << "Email khong hop le. Vui long nhap lai: ";
+				getline(in, x.email);
+			}
+			emailCheck.insert(x.email);
+
+			cout << "Address : ";
+			getline(in, x.address);
+			cout << "Company : ";
+			getline(in, x.company);
+
+			//Nhập quan hệ
+			cout << "Relative : ";
+			getline(in, x.relatives);
+
+			return in;
 		}
-		emailCheck.insert(x.email);
+		void displayContact() {
+			cout << "ContactID : " << contactID << endl;
+			cout << "Name : " << fullName << endl;
+			cout << "Phone Number : " << phoneNumber << endl;
+			cout << "Email : " << email << endl;
+			cout << "Address : " << address << endl;
+			cout << "Company : " << company << endl;
+		}
+		string getFullName() {
+			return fullName;
+		}
+		string getPhoneNumber() {
+			return phoneNumber;
+		}
+		string getEmail() {
+			return email;
+		}
+		string getContactID() {
+			return contactID;
+		}
+		char getContactFirstLetter() {
+			string username = getFullName();
+			stringstream ss(username);
+			string tmp;
+			vector<string> ten;
+			while (ss >> tmp) {
+				ten.push_back(tmp);
+			}
+			return ten[ten.size() - 1][0];
+		}
+		string getContactFirstName() {
+			string username = getFullName();
+			stringstream ss(username);
+			string tmp;
+			vector<string> ten;
+			while (ss >> tmp) {
+				ten.push_back(tmp);
+			}
+			return ten[ten.size() - 1];
+		}
+		void setFullName(string fullName) {
+			this->fullName = fullName;
+		}
+		void setPhoneNumber(string phoneNumber) {
+			this->phoneNumber = phoneNumber;
+		}
+		void setEmail(string email) {
+			this->email = email;
+		}
+		void setAddress(string address) {
+			this->address = address;
+		}
+		void setCompany(string company) {
+			this->company = company;
+		}
+		void setRelatives(string relatives) {
+			this->relatives = relatives;
+		}
+	};
 
-		cout << "Address : ";
-		getline(in, x.address);
-		cout << "Company : ";
-		getline(in, x.company);
 
-		//Nhập quan hệ
-		cout << "Relative : ";
-		getline(in, x.relatives);
-
-		return in;
+	bool checkUsername(string username) {
+		if (isdigit(username[0])) return false;
+		return true;
 	}
-	void displayContact() {
-		cout << "ContactID : " << contactID << endl;
-		cout << "Name : " << fullName << endl;
-		cout << "Phone Number : " << phoneNumber << endl;
-		cout << "Email : " << email << endl;
-		cout << "Address : " << address << endl;
-		cout << "Company : " << company << endl;
+	bool checkPassword(string password) {
+		if (password.length() < 8) return false;
+		for (int i = 0; i < password.size(); i++) {
+			if (kiTuDacBiet(password[i])) {
+				return true;
+			}
+		}
+		return false;
 	}
-	string getFullName() {
-		return fullName;
+	bool checkEmail(string email) {
+		for (int i = 0; i < email.length(); i++) {
+			if (email[i] == '@') {
+				return true;
+			}
+		}
+		return false;
 	}
-	string getPhoneNumber() {
-		return phoneNumber;
+	bool checkPhoneNumber(string phoneNumber) {
+		if (phoneNumber.size() != 10) return false;
+		for (int i = 0; i < phoneNumber.size(); i++) {
+			if (!isdigit(phoneNumber[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
-	string getEmail() {
-		return email;
-	}
-	string getContactID() {
-		return contactID;
-	}
-	char getContactFirstLetter() {
-		string username = getFullName();
-		stringstream ss(username);
+	void chuanHoaTen(string & ten) {
+		stringstream ss(ten);
 		string tmp;
-		vector<string> ten;
+		string res = "";
 		while (ss >> tmp) {
-			ten.push_back(tmp);
+			res += toupper(tmp[0]);
+			for (int i = 1; i < tmp.size(); i++) {
+				res += tolower(tmp[i]);
+			}
+			res += " ";
 		}
-		return ten[ten.size() - 1][0];
+		res.pop_back();
+		ten = res;
 	}
-	string getContactFirstName() {
-		string username = getFullName();
-		stringstream ss(username);
-		string tmp;
-		vector<string> ten;
-		while (ss >> tmp) {
-			ten.push_back(tmp);
+	bool checkContactID(string contactID) {
+		for (int i = 0; i < contactID.size(); i++) {
+			if (!isdigit(contactID[i])) {
+				return false;
+			}
 		}
-		return ten[ten.size() - 1];
+		return true;
 	}
-	void setFullName(string fullName) {
-		this->fullName = fullName;
-	}
-	void setPhoneNumber(string phoneNumber) {
-		this->phoneNumber = phoneNumber;
-	}
-	void setEmail(string email) {
-		this->email = email;
-	}
-	void setAddress(string address) {
-		this->address = address;
-	}
-	void setCompany(string company) {
-		this->company = company;
-	}
-	void setRelatives(string relatives) {
-		this->relatives = relatives;
-	}
-};
+}
 
 
-bool checkUsername(string username) {
-	if (isdigit(username[0])) return false;
-	return true;
-}
-bool checkPassword(string password) {
-	if (password.length() < 8) return false;
-	for (int i = 0; i < password.size(); i++) {
-		if (kiTuDacBiet(password[i])) {
-			return true;
-		}
-	}
-	return false;
-}
-bool checkEmail(string email) {
-	for (int i = 0; i < email.length(); i++) {
-		if (email[i] == '@') {
-			return true;
-		}
-	}
-	return false;
-}
-bool checkPhoneNumber(string phoneNumber) {
-	if (phoneNumber.size() != 10) return false;
-	for (int i = 0; i < phoneNumber.size(); i++) {
-		if (!isdigit(phoneNumber[i])) {
-			return false;
-		}
-	}
-	return true;
-}
-void chuanHoaTen(string& ten) {
-	stringstream ss(ten);
-	string tmp;
-	string res = "";
-	while (ss >> tmp) {
-		res += toupper(tmp[0]);
-		for (int i = 1; i < tmp.size(); i++) {
-			res += tolower(tmp[i]);
-		}
-		res += " ";
-	}
-	res.pop_back();
-	ten = res;
-}
-bool checkContactID(string contactID) {
-	for (int i = 0; i < contactID.size(); i++) {
-		if (!isdigit(contactID[i])) {
-			return false;
-		}
-	}
-	return true;
-}
