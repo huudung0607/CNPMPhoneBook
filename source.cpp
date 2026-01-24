@@ -151,6 +151,55 @@ public:
 	}
 };
 
+vector<User> lockAccount;
+vector<User> unlockAccount;
+class Admin : public User {
+public: 
+	Admin() {};
+	Admin(string userID, string username, string email, string password) : User(username, email, password) {};
+	void UnlockAccount() {
+		if (lockAccount.size() == 0) {
+			cout << "Khong co tai khoan bi khoa!" << endl;
+			return;
+		}
+		cout << "Nhap ma ID tai khoan can mo khoa : ";
+		string id;
+		getline(cin, id);
+		while (!userIDCheck.count(id)) {
+			cout << "Khong tim thay ID, vui long nhap lai : ";
+			getline(cin, id);
+		}
+		for (int i = 0; i < lockAccount.size(); i++) {
+			if (lockAccount[i].getUserID() == id) {
+				unlockAccount.push_back(lockAccount[i]);
+				lockAccount.erase(lockAccount.begin() + i);
+				cout << "Mo khoa tai khoan thanh cong!" << endl;
+				return;
+			}
+		}
+	}
+	void LockAccount() {
+		if(unlockAccount.size() == 0) {
+			cout << "Khong co tai khoan de khoa!" << endl;
+			return;
+		}
+		cout << "Nhap ma ID tai khoan can khoa : ";
+		string id;
+		getline(cin, id);
+		while (!userIDCheck.count(id)) {
+			cout << "Khong tim thay ID, vui long nhap lai : ";
+			getline(cin, id);
+		}
+		for (int i = 0; i < unlockAccount.size(); i++) {
+			if (unlockAccount[i].getUserID() == id) {
+				lockAccount.push_back(unlockAccount[i]);
+				unlockAccount.erase(unlockAccount.begin() + i);
+				cout << "Khoa tai khoan thanh cong!" << endl;
+				return;
+			}
+		}
+	}
+};
 
 int main()
 {
