@@ -855,7 +855,28 @@ public:
 	}
 };
 
-
+class System {
+private:
+	vector<User> userList;
+public:
+	System() {};
+	void registerAccount() {
+		User x;
+		cin >> x;
+		userList.push_back(x);
+	}
+	void showMenu() {
+		cout << "=======PHONEBOOK MANAGEMENT SYSTEM========" << endl;
+		cout << "Moi chon vai tro he thong : " << endl;
+		cout << "1.Khach" << endl;
+		cout << "2.Nguoi Dung" << endl;
+		cout << "3.Admin" << endl;
+		cout << "==========================================" << endl;
+	}
+	vector<User> getUserList() {
+		return userList;
+	}
+};
 
 int main()
 {
