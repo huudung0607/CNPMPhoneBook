@@ -1,4 +1,4 @@
-﻿#include <fstream>
+#include <fstream>
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -21,7 +21,7 @@ bool checkUsername(string username);
 bool checkPassword(string password);
 bool kiTuDacBiet(char c) {
 	if (int(c) >= 32 && int(c) <= 47 || int(c) >= 58 && int(c) <= 64 || int(c) >= 91 && int(c) <= 96 || int(c) >= 123) {
-		return true;
+			return true;
 	}
 	return false;
 }
@@ -42,7 +42,7 @@ map<string, string> userAccountData;
 
 
 
-class User {
+class User {	
 private:
 	string userID, username, email, password;
 public:
@@ -54,9 +54,8 @@ public:
 	}
 	friend istream& operator >> (istream& in, User& x) {
 
-		//Tạo userID ngẫu nhiên từ 10000 đến 99999 và kiểm tra trùng lặp
-		srand(time(NULL));
-		int soID = rand() % 90000 + 10000;
+		//Tạo userID ngẫu nhiên từ 10000 đến 99999 và kiểm tra trùng lặ
+		int soID = rand() % 90000 + 10000; 
 		string ssoID = to_string(soID);
 		while (userIDCheck.count(ssoID)) {
 			soID = rand() % 90000 + 10000;
@@ -73,7 +72,7 @@ public:
 		usernameCheck.insert(x.username);
 
 		//Nhập và kiểm tra password
-
+		
 		cout << "Mat khau : ";
 		getline(in, x.password);
 		while (!checkPassword(x.password)) {
@@ -155,7 +154,7 @@ public:
 vector<User> lockAccount;
 vector<User> unlockAccount;
 class Admin : public User {
-public:
+public: 
 	Admin() {};
 	Admin(string userID, string username, string email, string password) : User(username, email, password) {};
 	void UnlockAccount() {
@@ -180,7 +179,7 @@ public:
 		}
 	}
 	void LockAccount() {
-		if (unlockAccount.size() == 0) {
+		if(unlockAccount.size() == 0) {
 			cout << "Khong co tai khoan de khoa!" << endl;
 			return;
 		}
@@ -206,9 +205,9 @@ public:
 class Contact {
 private:
 	string contactID, fullName, phoneNumber, email, address, company, relatives;
-public:
+public :
 	Contact() {};
-	Contact(string contactID, string fullName, string phoneNumber, string email, string address, string company, string relatives) {
+	Contact(string contactID, string fullName, string phoneNumber, string email, string address, string company,string relatives) {
 		this->contactID = contactID;
 		this->fullName = fullName;
 		this->phoneNumber = phoneNumber;
@@ -708,7 +707,6 @@ public:
 
 	//tao nhom
 	void makeGroup() {
-		srand(time(NULL));
 		Group group;
 		int id = rand() % 900 + 100;
 		while (groupIDCheck.count(to_string(id))) {
@@ -903,7 +901,7 @@ public:
 					cout << "ContactID da ton tai, vui long nhap lai " << endl;
 				}
 				else cout << "ContactID : " << contact.getContactID() << " khong hop le" << endl;
-			}
+			}	
 			else {
 				userIDCheck.insert(contact.getContactID());
 				contact.setFullName(docFile[i + 1].substr(12));
@@ -980,6 +978,7 @@ public:
 
 int main()
 {
+	srand(time(NULL));
 	System system;
 	bool straight = false;
 	int cnt = 0;
@@ -1025,7 +1024,7 @@ int main()
 					cout << "Tien hanh dang ky ! " << endl;
 					system.registerAccount();
 					straight = true;
-					cout << endl;
+					cout << endl;	
 					cout << endl;
 					break;
 				}
@@ -1036,7 +1035,7 @@ int main()
 			}
 		}
 		while (choice == "2" && cnt <= 5) {
-			if (straight == true) {
+			if(straight == true){
 				int id = rand() % 9000 + 1000;
 				phoneBook userBook(to_string(id));
 				//doc contactList co san
@@ -1147,7 +1146,7 @@ int main()
 				bool flag = false;
 				bool login = false;
 				for (int i = 0; i < unlockAccount.size(); i++) {
-					if (unlockAccount[i].getUsername() == username) {
+					if (unlockAccount[i].getUsername() == username){
 						login = true;
 					}
 				}
@@ -1172,7 +1171,7 @@ int main()
 			cout << "Username : ";
 			getline(cin, username);
 			cout << "Password : ";
-			getline(cin, password);
+			getline(cin,password);
 			bool flag = false;
 			if (username.find("admin") != string::npos && password.find("admin") != string::npos
 				|| username.find("Admin") != string::npos && password.find("Admin") != string::npos ||
